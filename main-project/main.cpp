@@ -4,8 +4,8 @@ using namespace std;
 
 int main()
 {
-    cout << "Laboratory work #8. GIT\n";
-    cout << "Variant #0. Library Subscription\n";
-    cout << "Author: Sergey Yermochenko\n";
+    cout << "Laboratory work #9. GIT\n";
+    cout << "Variant #10. Catalog\n";
+    cout << "Author: Ilya Savelyev\n";
     return 0;
 }
