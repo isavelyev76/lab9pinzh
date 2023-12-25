@@ -8,12 +8,10 @@ using namespace std;
 
 int main()
 {
-
     setlocale(LC_ALL, "Russian");
     cout << "Лабораторная работа №9. GIT\n";
     cout << "Вариант №10. Каталог товаров\n";
-    cout << "Автор: Савельев Илья\n";
-    cout << "Группа: 23ПИнж\n\n";
+    cout << "Автор: Савельев Илья\n\n";
     Product* products[MAX_FILE_ROWS_COUNT];
     int size;
     try
@@ -22,27 +20,60 @@ int main()
         cout << "***** Каталог товаров *****\n\n";
         for (int i = 0; i < size; i++)
         {
-            //Вывод цены товара
+            // Вывод цены товара
             cout << "Цена........: ";
             cout << products[i]->price << " ";
             cout << '\n';
 
-            //Вывод количества товара
+            // Вывод количества товара
             cout << "Количество........: ";
             cout << products[i]->quantity << " ";
             cout << '\n';
 
-            //Вывод категории товара
+            // Вывод категории товара
             cout << "Категория........: ";
             cout << products[i]->category;
             cout << '\n';
 
-            //Вывод названия товара
+            // Вывод названия товара
             cout << "Название........: ";
             cout << products[i]->name << " ";
             cout << '\n';
             cout << '\n';
         }
+
+        // Вывод всех товаров в категории "Промтовары"
+        cout << "***** Товары в категории \"Промтовары\" *****\n\n";
+        for (int i = 0; i < size; i++)
+        {
+            if (strcmp(products[i]->category, "Промтовары") == 0)
+            {
+                cout << "Название........: ";
+                cout << products[i]->name << " ";
+                cout << '\n';
+                cout << "Цена........: ";
+                cout << products[i]->price << " ";
+                cout << '\n';
+                cout << '\n';
+            }
+        }
+
+        // Вывод всех товаров со стоимостью выше 100 рублей
+        cout << "***** Товары со стоимостью выше 100 рублей *****\n\n";
+        for (int i = 0; i < size; i++)
+        {
+            if (products[i]->price > 100)
+            {
+                cout << "Название........: ";
+                cout << products[i]->name << " ";
+                cout << '\n';
+                cout << "Цена........: ";
+                cout << products[i]->price << " ";
+                cout << '\n';
+                cout << '\n';
+            }
+        }
+
         for (int i = 0; i < size; i++)
         {
             delete products[i];
@@ -52,11 +83,5 @@ int main()
     {
         cout << error << '\n';
     }
-
-    cout << "Laboratory work #9. GIT\n";
-    cout << "Variant #0. Catalog\n";
-    cout << "Author: Ilya Savelyev\n";
-    cout << "Group: 23PInzh1d\n";
-
     return 0;
 }
