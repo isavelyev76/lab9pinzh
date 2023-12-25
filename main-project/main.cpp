@@ -17,12 +17,28 @@ int main()
     try
     {
         read("data.txt", products, size);
+        cout << "***** Каталог товаров *****\n\n";
         for (int i = 0; i < size; i++)
         {
+            //Вывод цены товара
+            cout << "Цена........: ";
             cout << products[i]->price << " ";
+            cout << '\n';
+
+            //Вывод количества товара
+            cout << "Количество........: ";
             cout << products[i]->quantity << " ";
+            cout << '\n';
+
+            //Вывод категории товара
+            cout << "Категория........: ";
             cout << products[i]->category;
+            cout << '\n';
+
+            //Вывод названия товара
+            cout << "Название........: ";
             cout << products[i]->name << " ";
+            cout << '\n';
             cout << '\n';
         }
         for (int i = 0; i < size; i++)
