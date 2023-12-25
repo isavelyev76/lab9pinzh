@@ -8,10 +8,12 @@ using namespace std;
 
 int main()
 {
+
     setlocale(LC_ALL, "Russian");
     cout << "Лабораторная работа №9. GIT\n";
     cout << "Вариант №10. Каталог товаров\n";
-    cout << "Автор: Савельев Илья\n\n";
+    cout << "Автор: Савельев Илья\n";
+    cout << "Группа: 23ПИнж\n\n";
     Product* products[MAX_FILE_ROWS_COUNT];
     int size;
     try
@@ -50,5 +52,11 @@ int main()
     {
         cout << error << '\n';
     }
+
+    cout << "Laboratory work #9. GIT\n";
+    cout << "Variant #0. Catalog\n";
+    cout << "Author: Ilya Savelyev\n";
+    cout << "Group: 23PInzh1d\n";
+
     return 0;
 }
