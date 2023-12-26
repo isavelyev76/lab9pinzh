@@ -3,6 +3,6 @@
 
 #include "product.h"
 
-double process(Product* array[], int size);
+double calculateTotalCost(const Product* products, int size, const char* category);
 
-#endif  
+#endif
