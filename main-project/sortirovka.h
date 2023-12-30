@@ -2,10 +2,12 @@
 #define SORTIROVKA_H
 
 #include "product.h"
-#include "vector"
 
-void selectionSortByQuantityDesc(Product* products[], int size);
-void sortByCategoryAndCost(Product* products[], int size);
+// Merge Sort
+void merge(Product* arr[], int left, int mid, int right, int sortingCriteria);
+void mergeSort(Product* arr[], int left, int right, int sortingCriteria);
 
+// Selection Sort
+void selectionSort(Product* arr[], int size, int sortingCriteria);
 
 #endif

@@ -1,38 +1,113 @@
-#include <iostream>
-#include <algorithm>
 #include "sortirovka.h"
 
-// Функция сортировки по убыванию количества товара на складе
-void selectionSortByQuantityDesc(Product* products[], int size)
+// Merge Sort
+void merge(Product* arr[], int left, int mid, int right, int sortingCriteria)
 {
-    for (int i = 0; i < size - 1; i++)
+    int* const n1 = new int(mid - left + 1);
+    int* const n2 = new int(right - mid);
+
+    // Create temporary arrays
+    Product** const L = new Product * [(*n1)];
+    Product** const R = new Product * [(*n2)];
+
+    // Copy data to temporary arrays
+    for (int i = 0; i < (*n1); i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < (*n2); j++)
+        R[j] = arr[mid + 1 + j];
+
+    // Merge the temporary arrays
+    int i = 0;
+    int j = 0;
+    int k = left;
+
+    while (i < (*n1) && j < (*n2))
     {
-        int maxIndex = i;
-        for (int j = i + 1; j < size; j++)
+        if (sortingCriteria == 1)
         {
-            if (products[j]->quantity > products[maxIndex]->quantity)
+            // Sort by decreasing quantity
+            if (L[i]->quantity >= R[j]->quantity)
+                arr[k++] = L[i++];
+            else
+                arr[k++] = R[j++];
+        }
+        else if (sortingCriteria == 2)
+        {
+            // Sort by increasing category and decreasing price within the same category
+            if (L[i]->category < R[j]->category)
+                arr[k++] = L[i++];
+            else if (L[i]->category > R[j]->category)
+                arr[k++] = R[j++];
+            else
             {
-                maxIndex = j;
+                if (L[i]->price >= R[j]->price)
+                    arr[k++] = L[i++];
+                else
+                    arr[k++] = R[j++];
             }
         }
-        if (maxIndex != i)
-        {
-            std::swap(products[i], products[maxIndex]);
-        }
+    }
+
+    // Copy the remaining elements of L[]
+    while (i < (*n1))
+        arr[k++] = L[i++];
+
+    // Copy the remaining elements of R[]
+    while (j < (*n2))
+        arr[k++] = R[j++];
+
+    // Clean up dynamically allocated memory
+    delete n1;
+    delete n2;
+    delete[] L;
+    delete[] R;
+}
+
+void mergeSort(Product* arr[], int left, int right, int sortingCriteria)
+{
+    if (left < right)
+    {
+        int mid = left + (right - left) / 2;
+
+        // Sort first and second halves
+        mergeSort(arr, left, mid, sortingCriteria);
+        mergeSort(arr, mid + 1, right, sortingCriteria);
+
+        merge(arr, left, mid, right, sortingCriteria);
     }
 }
 
-// Функция сортировки по возрастанию категории товара, а в рамках одной категории по убыванию стоимости
-void sortByCategoryAndCost(Product* products[], int size)
+// Selection Sort
+void selectionSort(Product* arr[], int size, int sortingCriteria)
 {
-    std::sort(products, products + size, [](Product* a, Product* b) {
-        if (strcmp(a->category, b->category) == 0)
+    for (int i = 0; i < size - 1; i++)
+    {
+        int minIndex = i;
+
+        for (int j = i + 1; j < size; j++)
         {
-            return a->price > b->price;
+            if (sortingCriteria == 1)
+            {
+                // Sort by decreasing quantity
+                if (arr[j]->quantity > arr[minIndex]->quantity)
+                    minIndex = j;
+            }
+            else if (sortingCriteria == 2)
+            {
+                // Sort by increasing category and decreasing price within the same category
+                if (arr[j]->category < arr[minIndex]->category)
+                    minIndex = j;
+                else if (arr[j]->category == arr[minIndex]->category)
+                {
+                    if (arr[j]->price > arr[minIndex]->price)
+                        minIndex = j;
+                }
+            }
         }
-        else
-        {
-            return strcmp(a->category, b->category) < 0;
-        }
-        });
+
+        // Swap the found minimum element with the first element
+        Product* temp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = temp;
+    }
 }

@@ -74,89 +74,57 @@ int main()
             }
         }
 
-        cout << "***** Меню *****" << endl;
-        cout << "1. Вывести по убыванию количества товара на складе:" << endl;
-        cout << "2. Вывести по возрастанию категории товара, а в рамках одной категории по убыванию стоимости:" << endl;
-        cout << "3. Выход" << endl;
+        int sortingMethod;
+        cout << "Выберите метод сортировки:\n";
+        cout << "1. Сортировка слиянием (Merge Sort)\n";
+        cout << "2. Сортировка выбором (Selection Sort)\n";
+        cout << "Ваш выбор: ";
+        cin >> sortingMethod;
 
-        int choice;
-        bool exitMenu = false;
+        int sortingCriteria;
+        cout << "Выберите критерий сортировки:\n";
+        cout << "1. По убыванию количества товара на складе\n";
+        cout << "2. По возрастанию категории товара, а в рамках одной категории по убыванию стоимости\n";
+        cout << "Ваш выбор: ";
+        cin >> sortingCriteria;
 
-        while (!exitMenu)
+        cout << "***** Отсортированный каталог товаров *****\n\n";
+
+        switch (sortingMethod)
         {
-            cout << "Выберите пункт меню: ";
-            cin >> choice;
-
-            switch (choice)
-            {
-            case 1:
-            {
-                cout << "***** По убыванию количества товара на складе: *****\n\n";
-                selectionSortByQuantityDesc(products, size);
-                for (int i = 0; i < size; i++)
-                {
-                    // Вывод цены товара
-                    cout << "Цена........: ";
-                    cout << products[i]->price << " ";
-                    cout << '\n';
-
-                    // Вывод количества товара
-                    cout << "Количество........: ";
-                    cout << products[i]->quantity << " ";
-                    cout << '\n';
-
-                    // Вывод категории товара
-                    cout << "Категория........: ";
-                    cout << products[i]->category;
-                    cout << '\n';
-
-                    // Вывод названия товара
-                    cout << "Название........: ";
-                    cout << products[i]->name << " ";
-                    cout << '\n';
-                    cout << '\n';
-                }
-            }
+        case 1:
+            mergeSort(products, 0, size - 1, sortingCriteria);
             break;
-
-            case 2:
-            {
-                cout << "***** По возрастанию категории товара, а в рамках одной категории по убыванию стоимости: *****\n\n";
-                sortByCategoryAndCost(products, size);
-                for (int i = 0; i < size; i++)
-                {
-                    // Вывод цены товара
-                    cout << "Цена........: ";
-                    cout << products[i]->price << " ";
-                    cout << '\n';
-
-                    // Вывод количества товара
-                    cout << "Количество........: ";
-                    cout << products[i]->quantity << " ";
-                    cout << '\n';
-
-                    // Вывод категории товара
-                    cout << "Категория........: ";
-                    cout << products[i]->category;
-                    cout << '\n';
-
-                    // Вывод названия товара
-                    cout << "Название........: ";
-                    cout << products[i]->name << " ";
-                    cout << '\n';
-                    cout << '\n';
-                }
-            }
+        case 2:
+            selectionSort(products, size, sortingCriteria);
             break;
+        default:
+            cout << "Некорректный выбор метода сортировки.\n";
+            return 1;
+        }
 
-            case 3:
-                exitMenu = true;
-                break;
+        for (int i = 0; i < size; i++)
+        {
+            // Вывод цены товара
+            cout << "Цена........: ";
+            cout << products[i]->price << " ";
+            cout << '\n';
 
-            default:
-                cout << "Некорректный выбор. Повторите попытку." << endl;
-                break;
-            }
+            // Вывод количества товара
+            cout << "Количество........: ";
+            cout << products[i]->quantity << " ";
+            cout << '\n';
+
+            // Вывод категории товара
+            cout << "Категория........: ";
+            cout << products[i]->category;
+            cout << '\n';
+
+            // Вывод названия товара
+            cout << "Название........: ";
+            cout << products[i]->name << " ";
+            cout << '\n';
+            cout << '\n';
         }
 
         for (int i = 0; i < size; i++)
